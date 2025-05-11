@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>オブジェクトの配列をもとに要素を追加する</title>
+  <style>
+    div {
+      margin: 5px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+  <script>
+    const data = [{
+         dayOfWeek: 'Tue',
+         period: 4,
+         class: 'Network',
+         room: '6-204'
+       },
+       {
+         dayOfWeek: 'Tue',
+         period: 5,
+         class: 'Network',
+         room: '6-204'
+       }];
+       // この関数は文書が読み込まれた時に実行される
+       window.onload = function() {
+          const container = document.createElement("div");
+          for (const item of data) {
+            const div = document.createElement("div");
+            div.style.display = "flex";
+            for (const prop of Object.keys(item)) {
+              const innerDiv = document.createElement("div");
+              innerDiv.style.flexGrow = 1;
+              innerDiv.innerHTML = `<strong>${prop}:</strong> ${item[prop]}`;
+              div.appendChild(innerDiv);
+            }
+            container.appendChild(div);
+          }
+        document.body.appendChild(container);
+      }
+  </script>
+</head>
+<body>
+  <h1>オブジェクトの配列をもとに要素を追加する</h1>
+</body>
+</html>

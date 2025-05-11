@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fetchの練習</title>
+</head>
+
+<body>
+  <script>
+    window.onload = async function () {
+      const url = "https://api.openbd.jp/v1/get?isbn=9784780802047,9784909718044";      async function fetchData(url) {
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          return data;
+        } catch (error) {
+          throw new Error(error.message);
+        }
+      }
+
+      const data = await fetchData(url);
+      function addBookInfo(data) {
+  const bookInfo = document.createElement("div");
+  bookInfo.innerHTML = `
+    <h2>${data.title}</h2>
+    <p>ISBN: ${data.isbn}</p>
+    <p>著者: ${data.author}</p>
+    <p>出版社: ${data.publisher}</p>
+    <img src="${data.cover}" alt="${data.title}">
+  `;
+  document.body.appendChild(bookInfo); // 取得したデータを表示
+}
+
+const summaries = data.map(item => item.summary).filter(Boolean); // summaryが存在するものだけを取得
+summaries.forEach(summary => {
+  addBookInfo(summary); // 各書籍の情報を表示
+});
+    }
+  </script>
+</body>
+
+</html>

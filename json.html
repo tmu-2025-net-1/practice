@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON</title>
+  <script>
+    window.onload = function() {
+      const json = `{
+        "name": "John",
+        "age": 30,
+        "city": "New York"
+      }`;
+      const person = JSON.parse(json); // JSON文字列をオブジェクトに変換
+      person.age = 20;
+      console.log(person.name + " lives in " + person.city);
+      console.log(`${person.name} lives in ${person.city}`);
+    }
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>配列をもとに要素を追加する</title>
+  <script>
+    const data = ['りんご', 'ばなな', 'チェリー', 'Apple', 'Banana', 'Cherry', 'Durian'];
+    window.onload = function() {
+      const list = document.createElement('ul');
+      for (let item of data) {
+        const listItem = document.createElement('li');
+        listItem.textContent = item;
+        list.appendChild(listItem);
+      }
+      document.body.appendChild(list);
+    }
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

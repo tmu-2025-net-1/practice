@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タイトル</title>
+  <script>
+    window.onload = function() {
+      const heading = document.createElement('h1');
+      heading.textContent = "大きな見出し";
+      heading.style.color = "red";
+      heading.style.backgroundColor = "yellow";
+      heading.style.fontSize = "2em";
+      heading.style.textAlign = "center";
+      heading.style.margin = "20px";
+      heading.style.padding = "10px";
+      // heading.addEventListener('mouseenter', function() {
+      //   heading.style.backgroundColor = "lightblue";
+      // });
+      heading.onmouseenter = function() {
+        heading.style.backgroundColor = "lightblue";
+      }
+      heading.onmouseleave = function() {
+        heading.style.backgroundColor = "yellow";
+      }
+      document.body.appendChild(heading);
+      const paragraph = document.createElement('p');
+      paragraph.textContent = "新しいパラグラフを追加しました。";
+      document.body.appendChild(paragraph);
+
+      const button = document.querySelector('#gototop');
+      button.onclick = function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>トップ</h1>
+  <div style="height: 1000px;"></div>
+  <button id="gototop">トップ</button>
+</body>
+</html>

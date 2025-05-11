@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>オブジェクトをもとに要素を追加する</title>
+  <script>
+    const data = {
+      dayOfWeek: '火曜日',
+      period: 4,
+      class: 'ネットワーク',
+      teacher: '杉本',
+      room: '6-204'
+    };
+    window.onload = function() {
+      const div = document.createElement('div');
+      for (let item of Object.keys(data)) {
+        const innerDiv = document.createElement('div');
+        innerDiv.innerHTML = `<strong>${item}</strong>: ${data[item]}`;
+        div.appendChild(innerDiv);
+      }
+      document.body.appendChild(div);
+    }
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

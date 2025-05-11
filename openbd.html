@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Fetch APIを使った書籍情報の取得</h1>
+    <input type="text" id="isbn" placeholder="ISBNを入力">
+  </div>
+
+  <script>
+    window.onload = async function() {
+
+      const isbns = "9784780802047,9784909718044,9784750515533";
+      const isbnInput = document.getElementById("isbn");
+      isbnInput.value = isbns; // ISBNを入力フィールドにセット
+      isbnInput.addEventListener("change", async function() {
+        const inputValue = isbnInput.value;
+        if (inputValue) {
+          await fetchBookInfo(inputValue);
+        }
+      });
+
+      const container = document.createElement("div");
+      container.classList.add("book-info-container");
+      document.body.appendChild(container); // コンテナを作成
+
+      await fetchBookInfo(isbns); // 初回のデータ取得
+
+      // ISBNを指定してデータを取得する関数
+      async function fetchBookInfo(isbns) {
+
+        [...container.children].forEach(child => child.remove()); // 既存の子要素を削除
+
+        const isbnArray = isbns.split(",").map(isbn => isbn.trim());
+        const url = `https://api.openbd.jp/v1/get?isbn=${isbnArray.join(",")}`;
+
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          data.forEach(item => {
+            if (item.summary) {
+              addBookInfo(container, item.summary);
+            }
+          });
+        } catch (error) {
+          console.error("Fetch error:", error);
+        }
+      }
+
+      // 取得したデータを表示する関数
+      function addBookInfo(element, data) {
+        const bookInfo = document.createElement("div");
+        bookInfo.classList.add("book-info");
+        bookInfo.innerHTML = `
+          <h2>${data.title}</h2>
+          <p>${data.author}</p>
+          <p>${data.publisher}</p>
+          <img src="${data.cover}" alt="${data.title}">
+        `;
+        element.appendChild(bookInfo); // 取得したデータを表示
+      }
+    }
+   </script>
+   <style>
+    * {
+      box-sizing: border-box;
+    }
+    .container {
+      width: 800px;
+      margin: 0 auto;
+    }
+    #isbn {
+      width: 100%;
+      font-size: 2em;
+      padding: 0.25em;
+    }
+    .book-info-container {
+      background-color: #eee;
+      width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+    .book-info {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      width: 200px;
+      text-align: center;
+    }
+    .book-info h2 {
+      font-size: 1em;
+      color: #333;
+    }
+    .book-info img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+    }
+   </style>
+</body>
+</html>

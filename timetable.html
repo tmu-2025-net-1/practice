@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>時間割</title>
+  <style>
+    th,
+    td {
+      border: 1px solid rgb(171, 55, 55);
+      background-color: antiquewhite;
+      border-radius: 4px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: rgb(105, 48, 15);
+      color: white;
+    }
+  </style>
+  <script>
+    const data = [{
+      dayOfWeek: '月',
+      period: 3,
+      class: 'Web基礎'
+    },
+    {
+      dayOfWeek: '火',
+      period: 3,
+      class: 'デザマネ'
+    },
+    {
+      dayOfWeek: '火',
+      period: 4,
+      class: 'ネットワーク'
+    },
+    {
+      dayOfWeek: '火',
+      period: 5,
+      class: 'ネットワーク'
+    },
+    {
+      dayOfWeek: '水',
+      period: 1,
+      class: 'IA概論'
+    },
+    {
+      dayOfWeek: '水',
+      period: 3,
+      class: 'ゼミ'
+    },
+    {
+      dayOfWeek: '水',
+      period: 5,
+      class: 'IA特論Z'
+    }];
+
+    window.onload = function () {
+
+      // テーブルを作成
+      function createTable(data) {
+        const table = document.createElement('table');
+
+        // 1行目のヘッダーを作成
+        const tr = document.createElement('tr');
+        for (const key of Object.keys(data[0])) {
+          const th = document.createElement('th');
+          th.textContent = key;
+          tr.appendChild(th);
+        }
+        table.appendChild(tr);
+
+        for (let item of data) {
+          const tr = document.createElement('tr');
+          for (const prop of Object.keys(item)) {
+            const td = document.createElement('td');
+            td.textContent = item[prop];
+            tr.appendChild(td);
+          }
+          table.appendChild(tr);
+        }
+
+        document.body.appendChild(table);
+      }
+
+      document.body.appendChild(document.createElement('h1')).textContent = '時間割';
+      document.body.appendChild(document.createElement('h2')).textContent = '全てのデータ';
+      createTable(data);
+      document.body.appendChild(document.createElement('h2')).textContent = '火曜日のみ';
+      createTable(data.filter(item => item.dayOfWeek === '火'));
+      document.body.appendChild(document.createElement('h2')).textContent = '午前中のみ';
+      createTable(data.filter(item => item.period <= 2));
+    }
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
